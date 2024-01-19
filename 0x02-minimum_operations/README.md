@@ -15,4 +15,5 @@ In a text file, there is a single character `H`. Your text editor can execute on
 `H` => `Copy All` => `Paste` => `HH` => `Paste` => `HHH` => `Copy All` => `Paste` => `HHHHHH` => `Paste` => `HHHHHHHHH`
 
 </br>
+
 Number of operations: `6`
