@@ -29,7 +29,7 @@ def minOperations(n: int) -> int:
     if is_prime(n):
         return n
 
-    min_operations: int = 0
+    min_operations = 0
     for min_factor in range(int(math.sqrt(n) + 1), 1, -1):
         # print(f"min_factor: {min_factor}")
         if n % min_factor == 0:
