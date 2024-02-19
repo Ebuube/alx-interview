@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""UTF-8 VALIDATION"""
+"""
+UTF-8 VALIDATION
+"""
 
 
 def validUTF8(data):
@@ -14,4 +16,4 @@ def validUTF8(data):
     Each integer represents 1 byte of data, therefore you only need to
     handle the 8 least significant bits of each integer
     """
-    Return False
+    return False
