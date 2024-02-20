@@ -51,6 +51,9 @@ def validUTF8(data):
 
     Return True if data is a valid UTF-8 encoding, else return False
 
+    Sample data:
+    data = [128, 323, 424]
+
     Each data set is a list of integers.
     The data set can contain multiple characters
     The data will be represented by a list of integers
