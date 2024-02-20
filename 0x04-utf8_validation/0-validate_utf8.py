@@ -3,6 +3,7 @@
 UTF-8 VALIDATION
 """
 
+
 def char_bytes_len(one_byte):
     """
     Return the number of bytes this character codes for
@@ -26,6 +27,15 @@ def char_bytes_len(one_byte):
     return None
 
 
+def is_continuation_byte(one_byte):
+    """
+    Return True is a byte starts with 10
+    """
+    if one_byte >> 6 == 0b10:
+        return True
+    return False
+
+
 def validUTF8(data):
     """
     Determine if a given data set represents a valid UTF-8 encoding.
@@ -39,22 +49,44 @@ def validUTF8(data):
     handle the 8 least significant bits of each integer
 
     - CONCEPT -
-    For a single-byte Character:
-        * The byte starst with a `0`
+    For a Single-byte character:
+        * The byte starts with a `0`
         * It represents a single character in Unicode character set
+    For a Two-byte character:
+        * The byte starts with a `110`
+    For a Three-byte character:
+        * The byte starts with a `1110`
+    For a continuation byte:
+        * The byte starts with `10`
     """
     if not isinstance(data, list):
         return False
 
+    bytes_left = 0  # the number of bytes to access
     for num in data:
         if not isinstance(num, int):
             return False
+
+        if bytes_left:
+            # Traverse through remaining bytes
+            if not is_continuation_byte(num):
+                return False
+            bytes_left = bytes_left - 1
+            continue
 
         # Get only the least significant byte
         one_byte = num & 0xFF
 
         # Get the total number of bytes expected
         num_char = char_bytes_len(one_byte)
-        print("Total char len: {}".format(num_char))    # test
+        if not num_char:
+            print("Invalid byte")
+            return False
+        # print("Total char len: {}".format(num_char))    # test
+
+        if num_char == 1:
+            continue
+        elif num_char > 1:
+            bytes_left = num_char - 1
 
     return True
