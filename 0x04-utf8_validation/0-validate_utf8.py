@@ -9,7 +9,15 @@ def char_bytes_len(one_byte):
     Return the number of bytes this character codes for
 
     A continuation returns None
+
+    A single-byte character starts with = '0b0'
+    A two-byte character starts with = '0b110'
+    A three-byte character starts with = '0b1110'
+    A four-byte character starts with = '0b11110'
+
+    UTF-8 uses only 1-4 byte to encode characters
     """
+    # Check if one_byte starts with '0b0'
     if one_byte >> 7 == 0b0:
         return 1    # A single-byte character
 
@@ -17,6 +25,7 @@ def char_bytes_len(one_byte):
     byte_count = 0b110
 
     while bit_len > 0:
+        # Check if one_byte starts with `byte_count` binary value
         if one_byte >> bit_len == byte_count:
             return 7 - bit_len
         else:
