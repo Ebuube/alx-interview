@@ -18,12 +18,12 @@ def char_bytes_len(one_byte):
 
     while bit_len > 0:
         if one_byte >> bit_len == byte_count:
-            return 8 - bit_len
+            return 7 - bit_len
         else:
             bit_len -= 1
             byte_count = (byte_count << 1) + 0b10
 
-    print("Could not find len of expected characters")  # test
+    # print("Could not find len of expected characters")  # test
     return None
 
 
@@ -70,6 +70,7 @@ def validUTF8(data):
         if bytes_left:
             # Traverse through remaining bytes
             if not is_continuation_byte(num):
+                # print(f"[{num}]: Continuation byte expected")     # test
                 return False
             bytes_left = bytes_left - 1
             continue
@@ -80,13 +81,11 @@ def validUTF8(data):
         # Get the total number of bytes expected
         num_char = char_bytes_len(one_byte)
         if not num_char:
-            print("Invalid byte")
+            # print("Invalid byte")
             return False
         # print("Total char len: {}".format(num_char))    # test
 
-        if num_char == 1:
-            continue
-        elif num_char > 1:
+        if num_char > 1:
             bytes_left = num_char - 1
 
     return True
