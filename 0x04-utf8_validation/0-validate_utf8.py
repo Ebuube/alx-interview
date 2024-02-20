@@ -70,8 +70,9 @@ def validUTF8(data):
         if bytes_left:
             # Traverse through remaining bytes
             if not is_continuation_byte(num):
-                # print(f"[{num}]: Continuation byte expected")     # test
+                print(f"[{num}]: Continuation byte expected")     # test
                 return False
+            print(f"[{num}]: Continuation byte gotten") # test
             bytes_left = bytes_left - 1
             continue
 
@@ -83,9 +84,15 @@ def validUTF8(data):
         if not num_char:
             # print("Invalid byte")
             return False
-        # print("Total char len: {}".format(num_char))    # test
+        print("[{}]: Total char len: {}".format(num, num_char))    # test
 
         if num_char > 1:
             bytes_left = num_char - 1
+            print("Need to traverse {} more continuation bytes".format(bytes_left)) # test
+
+    if bytes_left:
+        # Did not traverse all the required continuation bytes
+        print(f"Did not traverse all continuation bytes")   # test
+        return False
 
     return True
