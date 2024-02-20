@@ -58,6 +58,7 @@ def validUTF8(data):
         * The byte starts with a `1110`
     For a continuation byte:
         * The byte starts with `10`
+    Note: UTF-8 encodes character in 1 to 4 bytes and not more.
     """
     if not isinstance(data, list):
         return False
