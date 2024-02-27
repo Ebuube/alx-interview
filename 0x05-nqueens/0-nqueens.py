@@ -8,7 +8,6 @@ def conv_to_perm(board):
     """Print one of the permutations of the result
     """
     if not board or len(board) == 0:
-        print([])
         return
 
     result = []
@@ -23,7 +22,6 @@ def conv_to_soln(board):
     """Print ALX acceptable solution of the result
     """
     if not board or len(board) == 0:
-        print([])
         return
 
     result = []
@@ -108,17 +106,5 @@ if __name__ == '__main__':
         exit(1)
 
     board = get_board(arg)
-    print("Board:")
-    pprint(board)    # No need for pretty
-
     result = solveNQ(board, 0)
-    print("Is there a solution: {}".format(result))
-
-    print("Board:")
-    pprint(board)
-
-    print("\nSolution: -> ")
     pprint(conv_to_soln(board))
-
-    print("\nOne permutaion: -> ")
-    pprint(conv_to_perm(board))
