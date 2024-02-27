@@ -3,8 +3,26 @@
 import sys
 from pprint import pprint
 
+
+def conv_to_perm(board):
+    """Print one of the permutations of the result
+    """
+    if not board or len(board) == 0:
+        print([])
+        return
+
+    result = []
+    for row in range(len(board)):
+        col = board[row].index(1)
+        result.append(col)
+
+    return result
+
+
 def conv_to_soln(board):
-    if not board or len(board) < 0:
+    """Print ALX acceptable solution of the result
+    """
+    if not board or len(board) == 0:
         print([])
         return
 
@@ -46,16 +64,16 @@ def solveNQ(board, col):
     for row in range(len(board)):
         if is_safe(board, row, col):
             # Place the queen in this position
-            board[row][col] = 1;
+            board[row][col] = 1
 
             # Recursively attempt to place the rest of the queens
-            if solveNQ(board, col + 1) == True:
+            if solveNQ(board, col + 1) is True:
                 return True
 
             # If that didn't, nullify the current Queen's position
-            board[row][col] = 0;
+            board[row][col] = 0
 
-    return False;
+    return False
 
 
 def get_board(size):
@@ -101,3 +119,6 @@ if __name__ == '__main__':
 
     print("\nSolution: -> ")
     pprint(conv_to_soln(board))
+
+    print("\nOne permutaion: -> ")
+    pprint(conv_to_perm(board))
