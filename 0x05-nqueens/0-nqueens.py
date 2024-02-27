@@ -3,11 +3,59 @@
 import sys
 from pprint import pprint
 
+def conv_to_soln(board):
+    if not board or len(board) < 0:
+        print([])
+        return
 
-def solveNQ(board, 0):
+    result = []
+    for row in range(len(board)):
+        col = board[row].index(1)
+        result.append([row, col])
+
+    return result
+
+
+def is_safe(board, row, col):
+    """Check if the current board setting is safe for all queens
+    """
+    # Check horizontally across and leftwards
+    for i in range(col):
+        if board[row][i] == 1:
+            return False
+
+    # Check diagonally left and upwards
+    for r, c in zip(range(row, -1, -1), range(col, -1, -1)):
+        if board[r][c] == 1:
+            return False
+
+    # Check diagonally left and downwards
+    for r, c in zip(range(row, len(board), 1), range(col, -1, -1)):
+        if board[r][c] == 1:
+            return False
+
+    return True
+
+
+def solveNQ(board, col):
     """Solve the N Queen problem for a board starting from cell (0, 0)
     """
-    pass
+    if col >= len(board):
+        return True
+
+    for row in range(len(board)):
+        if is_safe(board, row, col):
+            # Place the queen in this position
+            board[row][col] = 1;
+
+            # Recursively attempt to place the rest of the queens
+            if solveNQ(board, col + 1) == True:
+                return True
+
+            # If that didn't, nullify the current Queen's position
+            board[row][col] = 0;
+
+    return False;
 
 
 def get_board(size):
@@ -41,6 +89,15 @@ if __name__ == '__main__':
         print("N must be at least 4")
         exit(1)
 
-    pprint(get_board(arg))    # No need for pretty
-    result = solveNQ(board)
-    pprint(result)
+    board = get_board(arg)
+    print("Board:")
+    pprint(board)    # No need for pretty
+
+    result = solveNQ(board, 0)
+    print("Is there a solution: {}".format(result))
+
+    print("Board:")
+    pprint(board)
+
+    print("\nSolution: -> ")
+    pprint(conv_to_soln(board))
