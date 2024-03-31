@@ -2,7 +2,24 @@
 """Log parsing module
 """
 import re
+import signal
 import sys
+
+
+line_counter = 0
+payload = {
+        'file_size': 0,
+        'status_codes': {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0,
+                         '404': 0, '405': 0, '500': 0}}
+
+
+def sigint_handler(signal, frame):
+    """Handle SIGINT
+    Also known as Keyboard Interrupt
+        - Print metrics on event
+    """
+    print_metrics(payload)
+    line_counter = 0
 
 
 def analyze(line: str = '', payload: dict = {}):
@@ -48,27 +65,12 @@ if __name__ == '__main__':
 
     After every 10 lines/keyboard interrupt print metrics
     """
-    payload = {'file_size': 0,
-               'status_codes': {
-                   '200': 0,
-                   '301': 0,
-                   '400': 0,
-                   '401': 0,
-                   '403': 0,
-                   '404': 0,
-                   '405': 0,
-                   '500': 0}}
-    count = 0
     for line in sys.stdin:
         if not line or len(line) == 0:
             continue
         analyze(line, payload)
-        try:
-            if count == 9:
-                print_metrics(payload)
-                count = 0
-            else:
-                count += 1
-        except KeyboardInterrupt:
+        if line_counter == 9:
             print_metrics(payload)
-            count = 0
+            line_counter = 0
+        else:
+            line_counter += 1
