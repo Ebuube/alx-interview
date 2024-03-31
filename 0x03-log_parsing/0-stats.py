@@ -11,7 +11,7 @@ def analyze(line: str = '', payload: dict = {}):
     if not line or type(line) is not str:
         return
 
-    pattern = '^(\S+) - \[(\S+) (\S+)\] "GET \/projects\/260 HTTP\/1\.1" (\d+)\s(\d+)$'
+    pattern = '^(\S+) - \[(\S+) (\S+)\] "GET \/projects\/260 HTTP\/1\.1" (\d+)\s(\d+)$'     # noqa: W605, E501
     match = re.match(pattern, line)
     if not match:
         return
