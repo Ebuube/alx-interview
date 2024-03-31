@@ -60,8 +60,9 @@ if __name__ == '__main__':
                    '500': 0}}
     count = 0
     for line in sys.stdin:
-        if line:
-            analyze(line, payload)
+        if not line or len(line) == 0:
+            continue
+        analyze(line, payload)
         try:
             if count == 9:
                 print_metrics(payload)
