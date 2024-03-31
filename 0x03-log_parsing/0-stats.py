@@ -43,6 +43,11 @@ def print_metrics(payload: dict = {}):
 
 
 if __name__ == '__main__':
+    """
+    Analyze a stream of inputs
+
+    After every 10 lines/keyboard interrupt print metrics
+    """
     payload = {'file_size': 0,
                'status_codes': {
                    '200': 0,
@@ -57,8 +62,12 @@ if __name__ == '__main__':
     for line in sys.stdin:
         if line:
             analyze(line, payload)
-        if count == 9:
+        try:
+            if count == 9:
+                print_metrics(payload)
+                count = 0
+            else:
+                count += 1
+        except KeyboardInterrupt:
             print_metrics(payload)
             count = 0
-        else:
-            count += 1
