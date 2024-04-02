@@ -4,7 +4,10 @@ import sys
 from time import sleep
 import datetime
 
-for i in range(20):
+
+number_of_logs = 31
+
+for i in range(number_of_logs):
     sleep(random.random())
     sys.stdout.write("{:d}.{:d}.{:d}.{:d} - [{}] \"GET /projects/260 HTTP/1.1\" {} {}\n".format(
         random.randint(1, 255), random.randint(1, 255), random.randint(1, 255), random.randint(1, 255),

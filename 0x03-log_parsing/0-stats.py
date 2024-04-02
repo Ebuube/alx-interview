@@ -65,6 +65,7 @@ if __name__ == '__main__':
 
     After every 10 lines/keyboard interrupt print metrics
     """
+    displayed_metrics = False
     for line in sys.stdin:
         if not line or len(line) == 0:
             continue
@@ -72,5 +73,9 @@ if __name__ == '__main__':
         if line_counter == 9:
             print_metrics(payload)
             line_counter = 0
+            displayed_metrics = True
         else:
             line_counter += 1
+            displayed_metrics = False
+    if not displayed_metrics:
+        print_metrics(payload)
