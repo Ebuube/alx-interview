@@ -68,6 +68,7 @@ if __name__ == '__main__':
     displayed_metrics = False
     for line in sys.stdin:
         if not line or len(line) == 0:
+            line_counter += 1
             displayed_metrics = False
             continue
         analyze(line, payload)
