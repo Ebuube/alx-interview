@@ -14,13 +14,11 @@ def rotate_2d_matrix(matrix):
         It must be a square matrix to work perfectly
     """
     length = len(matrix)
-    start = 0
 
     for row in range(length):
-        for col in range(start, length):
+        for col in range(row, length):
             (matrix[row][col], matrix[col][row]) = (matrix[col][row],
                                                     matrix[row][col])
-        start += 1
 
     for row in range(length):
         matrix[row].reverse()
