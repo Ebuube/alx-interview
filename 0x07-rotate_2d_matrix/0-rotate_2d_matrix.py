@@ -15,10 +15,12 @@ def rotate_2d_matrix(matrix):
     """
     length = len(matrix)
 
+    # Transpose the matrix
     for row in range(length):
         for col in range(row, length):
             (matrix[row][col], matrix[col][row]) = (matrix[col][row],
                                                     matrix[row][col])
 
+    # Reverse each row
     for row in range(length):
         matrix[row].reverse()
