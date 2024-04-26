@@ -18,9 +18,7 @@ def rotate_2d_matrix(matrix):
 
     for row in range(length):
         for col in range(start, length):
-            temp = matrix[row][col]
-            matrix[row][col] = matrix[col][row]
-            matrix[col][row] = temp
+            matrix[row][col], matrix[col][row] = matrix[col][row], matrix[row][col]
         start += 1
 
     for row in range(length):
