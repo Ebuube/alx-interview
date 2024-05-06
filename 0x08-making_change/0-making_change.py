@@ -9,6 +9,8 @@ def makeChange(coins: List[int], total: int) -> int:
     Return fewest number of coins needed to meet `total`
     Returns `-1` if `total` cannot be met by any number of coins available
     """
+    if total <= 0:
+        return 0
     d_soln = [total + 1] * (total + 1)
     d_soln[0] = 0
 
